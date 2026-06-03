@@ -30,8 +30,9 @@
     box-sizing: border-box;
 }
 
-html {
-    min-height: 100%;
+html,
+body {
+    height: 100%;
 }
 
 body {
@@ -39,6 +40,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     margin: 0;
+    overflow: hidden;
     background-color: var(--background);
     color: var(--text);
     font-family: "Inter", Arial, sans-serif;
@@ -61,6 +63,11 @@ textarea {
 }
 
 /* Header */
+
+.site-header,
+.site-footer {
+    flex-shrink: 0;
+}
 
 .site-header {
     background-color: rgba(255, 255, 255, 0.92);
@@ -129,12 +136,16 @@ textarea {
 
 .page-content {
     flex: 1;
+    min-height: 0;
     padding: 32px 0;
+    overflow: hidden;
 }
 
 .blog-layout {
     display: grid;
-    grid-template-columns: minmax(250px, 330px) minmax(0, 1fr);
+    height: 100%;
+    min-height: 0;
+    grid-template-columns: minmax(250px, 250px) minmax(0, 1fr);
     gap: 24px;
 }
 
@@ -147,10 +158,14 @@ textarea {
 }
 
 .posts-sidebar {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
     overflow: hidden;
 }
 
 .section-heading {
+    flex-shrink: 0;
     padding: 22px;
     border-bottom: 1px solid var(--border);
     background-color: var(--surface-muted);
@@ -172,6 +187,7 @@ textarea {
 .posts-list {
     padding: 0;
     margin: 0;
+    overflow-y: auto;
     list-style: none;
 }
 
@@ -226,17 +242,23 @@ textarea {
     color: var(--muted-text);
     font-size: 0.86rem;
     line-height: 1.5;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 /* Área de detalhes */
 
 .post-details {
-    min-height: 480px;
+    min-height: 0;
     padding: 32px;
+    overflow-y: auto;
 }
 
 .post-header {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
@@ -355,8 +377,9 @@ textarea {
 /* Footer */
 
 .site-footer {
-    padding: 8px 0 28px;
+    padding: 0;
     color: var(--muted-text);
+    background-color: var(--background);
     font-size: 0.82rem;
 }
 
@@ -364,7 +387,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding-top: 18px;
+    padding: 14px 0;
     border-top: 1px solid var(--border);
 }
 
@@ -380,6 +403,15 @@ textarea {
 
 .form-sidebar-content {
     padding: 20px;
+}
+
+.form-sidebar,
+.form-details {
+    align-self: start;
+}
+
+.form-details {
+    max-height: 100%;
 }
 
 .sidebar-label {
@@ -452,7 +484,6 @@ textarea {
 }
 
 .form-field textarea {
-    min-height: 260px;
     line-height: 1.65;
     resize: vertical;
 }
@@ -491,47 +522,224 @@ textarea {
     font-size: 0.9rem;
 }
 
+/* Scroll */
+
+.posts-list,
+.post-details {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+    overscroll-behavior: contain;
+}
+
+.posts-list::-webkit-scrollbar,
+.post-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.posts-list::-webkit-scrollbar-track,
+.post-details::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.posts-list::-webkit-scrollbar-thumb,
+.post-details::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-color: var(--border-strong);
+}
+
 @media (max-width: 760px) {
+    body {
+        overflow: hidden;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+    }
+
+    /* Header */
+
     .header-content {
-        min-height: 68px;
+        min-height: 64px;
+        gap: 12px;
     }
 
-    .brand-text small {
-        display: none;
+    .brand {
+        gap: 10px;
     }
 
+    .brand-symbol {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .brand-text strong {
+        font-size: 0.96rem;
+    }
+
+    .brand-text small,
     .main-nav > a:not(.button) {
         display: none;
     }
 
+    .main-nav .button {
+        min-height: 38px;
+        padding: 9px 13px;
+        font-size: 0.84rem;
+    }
+
+    /* Área central */
+
     .page-content {
-        padding: 20px 0;
+        flex: 1;
+        min-height: 0;
+        padding: 16px 0;
+        overflow: hidden;
     }
 
     .blog-layout {
+        display: grid;
+        height: 100%;
+        min-height: 0;
         grid-template-columns: 1fr;
-        gap: 16px;
+        grid-template-rows: minmax(150px, 250px) minmax(0, 1fr);
+        gap: 14px;
     }
 
+    /* Lista de posts */
+
+    .posts-sidebar {
+        min-height: 0;
+        max-height: 250px;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .section-heading {
+        padding: 16px 18px;
+    }
+
+    .section-heading h1 {
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+
+    .section-heading p {
+        font-size: 0.82rem;
+    }
+
+    .posts-list {
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .post-list-item {
+        padding: 14px 18px;
+    }
+
+    .post-list-item.active {
+        padding-left: 21px;
+    }
+
+    .post-list-item strong {
+        font-size: 0.9rem;
+    }
+
+    .post-list-item span {
+        margin-top: 4px;
+        font-size: 0.72rem;
+    }
+
+    .post-list-item p {
+        display: none;
+    }
+
+    /* Detalhes da publicação */
+
     .post-details {
-        min-height: 320px;
-        padding: 22px;
+        min-height: 0;
+        padding: 20px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 14px;
     }
 
     .post-header {
-        flex-direction: column;
+        gap: 14px;
+        padding-bottom: 18px;
     }
 
     .post-header h2 {
-        font-size: 1.55rem;
+        font-size: 1.45rem;
     }
+
+    .post-date {
+        margin-bottom: 8px;
+        font-size: 0.72rem;
+    }
+
+    .post-actions {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .post-actions .button {
+        min-height: 40px;
+    }
+
+    .post-body {
+        margin-top: 20px;
+        font-size: 0.96rem;
+        line-height: 1.75;
+    }
+
+    /* Footer */
 
     .footer-content {
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
+        padding: 10px 0 12px;
     }
 
     .footer-content span {
         text-align: left;
+    }
+
+    /* Formulários no mobile */
+
+    .form-layout {
+        display: block;
+        height: 100%;
+    }
+
+    .form-sidebar {
+        display: none;
+    }
+
+    .form-layout .form-details {
+        height: 100%;
+        max-height: none;
+        overflow-y: auto;
+        border-radius: 14px;
+    }
+
+    .form-page-header {
+        padding-bottom: 16px;
+    }
+
+    .post-form {
+        gap: 18px;
+        margin-top: 18px;
+    }
+
+    .form-field textarea {
+        min-height: 180px;
+    }
+
+    .form-actions {
+        padding-top: 4px;
     }
 }
