@@ -6,11 +6,7 @@ The project allows users to create, browse, update and delete blog posts through
 
 ## Preview
 
-Add a project screenshot here:
-
-```md
 ![Dev Notes preview](docs/dev-notes-preview.png)
-```
 
 ## Features
 
