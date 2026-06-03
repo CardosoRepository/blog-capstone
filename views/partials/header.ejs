@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="/styles/main.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <title><%= title || "Dev Notes" %></title>
 </head>
 
 <body>
 <header class="site-header">
     <div class="container header-content">
-        <a class="brand" href="/">Dev Notes</a>
+        <a class="brand" href="/">
+            <span class="brand-symbol">D</span>
+
+            <span class="brand-text">
+                <strong>Dev Notes</strong>
+                <small>Caderno de ideias e código</small>
+            </span>
+        </a>
 
         <nav class="main-nav" aria-label="Navegação principal">
             <a href="/">Posts</a>

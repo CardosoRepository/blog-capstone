@@ -25,7 +25,8 @@ const posts = [
         createdAt: new Date()
     }
 ];
-let nextId = posts.length + 1;
+
+let nextId = Math.max(...posts.map((post) => post.id), 0) + 1;
 
 app.set("view engine", "ejs");
 

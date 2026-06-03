@@ -42,6 +42,13 @@
                                 <%= new Date(selectedPost.createdAt).toLocaleDateString("pt-BR") %>
                             </p>
 
+                            <% if (selectedPost.updatedAt) { %>
+                                <p class="post-updated-date">
+                                    Editado em
+                                    <%= new Date(selectedPost.updatedAt).toLocaleDateString("pt-BR") %>
+                                </p>
+                            <% } %>
+
                             <h2><%= selectedPost.title %></h2>
                         </div>
 
