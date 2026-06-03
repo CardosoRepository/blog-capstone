@@ -1,0 +1,80 @@
+<%- include("partials/header.ejs", { title: "Posts | Dev Notes" }) %>
+
+<main class="container page-content">
+    <section class="blog-layout">
+        <aside class="posts-sidebar">
+            <div class="section-heading">
+                <h1>Posts</h1>
+                <p>Selecione um texto para ler.</p>
+            </div>
+
+            <% if (posts.length === 0) { %>
+                <div class="empty-message">
+                    <p>Nenhum post foi publicado ainda.</p>
+                </div>
+            <% } else { %>
+                <ul class="posts-list">
+                    <% posts.forEach((post) => { %>
+                        <li>
+                            <a
+                                class="post-list-item <%= selectedPost && selectedPost.id === post.id ? 'active' : '' %>"
+                                href="/posts/<%= post.id %>"
+                            >
+                                <strong><%= post.title %></strong>
+
+                                <span><%= new Date(post.createdAt).toLocaleDateString("pt-BR") %></span>
+
+                                <p><%= post.content.length > 80 ? post.content.slice(0, 80) + "..." : post.content %></p>
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </aside>
+
+        <section class="post-details">
+            <% if (selectedPost) { %>
+                <article>
+                    <header class="post-header">
+                        <div>
+                            <p class="post-date">
+                                Publicado em
+                                <%= new Date(selectedPost.createdAt).toLocaleDateString("pt-BR") %>
+                            </p>
+
+                            <h2><%= selectedPost.title %></h2>
+                        </div>
+
+                        <div class="post-actions">
+                            <a
+                                class="button secondary-button"
+                                href="/posts/<%= selectedPost.id %>/edit"
+                            >
+                                Editar
+                            </a>
+
+                            <form
+                                action="/posts/<%= selectedPost.id %>/delete"
+                                method="POST"
+                                onsubmit="return confirm('Deseja excluir este post?')"
+                            >
+                                <button class="button delete-button" type="submit">
+                                    Excluir
+                                </button>
+                            </form>
+                        </div>
+                    </header>
+
+                    <p class="post-body"><%= selectedPost.content %></p>
+                </article>
+            <% } else { %>
+                <div class="empty-details">
+                    <h2>Selecione um post</h2>
+                    <p>O conteúdo completo aparecerá nesta área.</p>
+                </div>
+            <% } %>
+        </section>
+    </section>
+</main>
+
+<%- include("partials/footer.ejs") %>

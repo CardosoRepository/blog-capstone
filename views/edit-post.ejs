@@ -1,0 +1,91 @@
+<%- include("partials/header.ejs", { title: "Editar post | Dev Notes" }) %>
+
+<main class="container page-content">
+    <section class="blog-layout">
+        <aside class="posts-sidebar form-sidebar">
+            <div class="section-heading">
+                <h1>Editar post</h1>
+                <p>Atualize o conteúdo da publicação.</p>
+            </div>
+
+            <div class="form-sidebar-content">
+                <p class="sidebar-label">Orientações</p>
+
+                <ul class="form-tips">
+                    <li>Revise o título e o conteúdo antes de salvar.</li>
+                    <li>A data original de publicação será mantida.</li>
+                    <li>Você poderá editar novamente quando necessário.</li>
+                </ul>
+
+                <a class="back-link" href="/posts/<%= post.id %>">
+                    ← Voltar para o post
+                </a>
+            </div>
+        </aside>
+
+        <section class="post-details form-details">
+            <header class="post-header form-page-header">
+                <div>
+                    <p class="post-date">Edição</p>
+                    <h2>Editar publicação</h2>
+                </div>
+            </header>
+
+            <% if (error) { %>
+                <p class="form-error"><%= error %></p>
+            <% } %>
+
+            <form
+                class="post-form"
+                action="/posts/<%= post.id %>/edit"
+                method="POST"
+            >
+                <div class="form-field">
+                    <label for="title">Título</label>
+
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        value="<%= formData.title %>"
+                        placeholder="Digite o título do post"
+                        maxlength="120"
+                        required
+                    >
+
+                    <span class="field-hint">
+                        Escolha um título que resuma o assunto do texto.
+                    </span>
+                </div>
+
+                <div class="form-field">
+                    <label for="content">Conteúdo</label>
+
+                    <textarea
+                        id="content"
+                        name="content"
+                        rows="5"
+                        placeholder="Escreva o conteúdo do post"
+                        required
+                    ><%= formData.content %></textarea>
+
+                    <span class="field-hint">
+                        As alterações serão aplicadas ao post existente.
+                    </span>
+                </div>
+
+                <div class="form-actions">
+                    <a class="button secondary-button" href="/posts/<%= post.id %>">
+                        Cancelar
+                    </a>
+
+                    <button class="button primary-button" type="submit">
+                        Salvar alterações
+                    </button>
+                </div>
+            </form>
+        </section>
+    </section>
+</main>
+
+<%- include("partials/footer.ejs") %>

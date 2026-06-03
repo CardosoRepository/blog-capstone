@@ -1,0 +1,87 @@
+<%- include("partials/header.ejs", { title: "Novo post | Dev Notes" }) %>
+
+<main class="container page-content">
+    <section class="blog-layout">
+        <aside class="posts-sidebar form-sidebar">
+            <div class="section-heading">
+                <h1>Novo post</h1>
+                <p>Escreva e publique um novo texto.</p>
+            </div>
+
+            <div class="form-sidebar-content">
+                <p class="sidebar-label">Orientações</p>
+
+                <ul class="form-tips">
+                    <li>Use um título curto e fácil de identificar.</li>
+                    <li>Revise o conteúdo antes de publicar.</li>
+                    <li>Você poderá editar ou excluir o texto depois.</li>
+                </ul>
+
+                <a class="back-link" href="/">
+                    ← Voltar para os posts
+                </a>
+            </div>
+        </aside>
+
+        <section class="post-details form-details">
+            <header class="post-header form-page-header">
+                <div>
+                    <p class="post-date">Publicação</p>
+                    <h2>Criar novo post</h2>
+                </div>
+            </header>
+
+            <% if (error) { %>
+                <p class="form-error"><%= error %></p>
+            <% } %>
+
+            <form class="post-form" action="/posts" method="POST">
+                <div class="form-field">
+                    <label for="title">Título</label>
+
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        value="<%= formData.title %>"
+                        placeholder="Digite o título do post"
+                        maxlength="120"
+                        required
+                    >
+
+                    <span class="field-hint">
+                        Escolha um título que resuma o assunto do texto.
+                    </span>
+                </div>
+
+                <div class="form-field">
+                    <label for="content">Conteúdo</label>
+
+                    <textarea
+                        id="content"
+                        name="content"
+                        rows="5"
+                        placeholder="Escreva o conteúdo do post"
+                        required
+                    ><%= formData.content %></textarea>
+
+                    <span class="field-hint">
+                        O texto poderá ser alterado posteriormente.
+                    </span>
+                </div>
+
+                <div class="form-actions">
+                    <a class="button secondary-button" href="/">
+                        Cancelar
+                    </a>
+
+                    <button class="button primary-button" type="submit">
+                        Publicar post
+                    </button>
+                </div>
+            </form>
+        </section>
+    </section>
+</main>
+
+<%- include("partials/footer.ejs") %>
